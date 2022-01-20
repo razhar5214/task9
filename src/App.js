@@ -12,7 +12,7 @@ export default function App() {
         <Link to="/about">About</Link>
         <Routes>
           <Route exact path="/" element={<Home/>}/>
-          <Route path="/about" element={<h1>About Page!</h1>}/>
+          
         </Routes>
     </div>
   );
