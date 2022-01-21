@@ -1,41 +1,37 @@
 import React from "react"
 import {Link} from "react-router-dom"
-import {useState, useEffect, useRef} from "react"
+import {useState, useEffect} from "react"
 import axios from 'axios'
 import AccountBalance from "./AccountBalance"
 
-export default function Debits(props){
+export default function Credits(props){
 
-    const [debitsData, setDebitsData] = useState([])
-    const debtURL = "https://moj-api.herokuapp.com/debits"
+    const [creditsData, setCreditsData] = useState()
+    const creditsURL = "https://moj-api.herokuapp.com/credits";
     
     useEffect(() => {
         const fetchData = async () => { 
-            const result = await axios(debtURL,);
-            setDebitsData(result.data);
-            
+            const result = await axios(creditsURL,);
+            setCreditsData(result.data);
         }; 
         fetchData();
     }, [])
-
-    let totalDebits = 0;
-    const renderDebits = debitsData?.map((item) => {
+    let totalCredits = 0;
+    const renderCredits = creditsData?.map((item) => {
         let date = new Date(item.date)
-        totalDebits += item.amount;
-
+        totalCredits += item.amount;
+        
         return (
             <div key={item.id}>
                 <p>{item.description}</p>
-                <p>-{item.amount}</p>
+                <p>{item.amount}</p>
                 <p>{date.toDateString()}</p>
                 <hr/>
             </div>
-
         );
     })
-
-    let newBalance = props.accountBalance-totalDebits;
-    console.log("Total Debits: " + totalDebits);
+    let newBalance = props.accountBalance+totalCredits;
+    console.log("Total Credits: " + totalCredits);
     console.log("New Balance: " + newBalance);
     useEffect(() => {
         props.updateBalance(newBalance)
@@ -44,10 +40,9 @@ export default function Debits(props){
     return(
         <div>
             <Link to="/">Home</Link><hr/>
-        <h1>DEBITS: </h1>
-        <AccountBalance accountBalance={newBalance}/>
-        {renderDebits}
-         
+            <h1>Credits: </h1>
+            <AccountBalance accountBalance={newBalance}/>
+            {renderCredits}
         </div>
     )
 }

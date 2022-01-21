@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 
 
 export default function Home(props){
-    console.log(props);
+
     return(
         <div>
             <h1>Bank of React</h1>
@@ -15,7 +15,6 @@ export default function Home(props){
             <Link to="/credits">Credits</Link>
             <hr/>
             <AccountBalance accountBalance={props.accountBalance}/>
-            
         </div>
     )
 }
