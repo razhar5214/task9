@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# TTP Assignment #9 - Bank of React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Done by : 
+* [Farai Mutukumira](https://github.com/FaraiMajor)
+* [Kristy Delacruz](https://github.com/itsskristyy)
+* [Raja Awais Azhar](https://github.com/razhar5214)
 
-## Available Scripts
+#Goals:
 
-In the project directory, you can run:
+## Client-side Routing
 
-### `npm start`
+Client-side `routing` is a bit of a misnomer. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+On the server, `routing` generally refers to the way we 
+define the URLs and RESTful resources that make up our application. Whether 
+we are asking for data from the database or persisting data, our server 
+needs to know where the data lives. Server `routes` help us keep track of this information.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In the browser, things are a little different. When we build Single-Page Applications, we render 
+our data inside of the browser. The data lives on a server, so our data's "addresses" have 
+been defined elsewhere. We only need to know what these pre-defined addresses are to consume them. 
+We'll still have a lot of different `views` for our data, and we won't want to 
+show all of them on the page at once. Client-side `routing` is how we'll describe 
+which views we are showing on the page at any given time.
 
-### `npm test`
+## Routing in React
+There is no way to handle client-side routing in the React library.  Instead, there are multiple libraries available to handle this specific task.  The most popular library is called `React Router`.  This library is hands down the most popular solution for client-side routing.  Recently, `React Router` made a major overhaul to their library with the release of `v4`.  In the newest version, the team behind `React Router` refactored the library to make everything just a regular React components.  Some online tutorials have not yet updated their libraries, so we recommend using the [official docs](https://reacttraining.com/react-router/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setting up React Router
 
-### `npm run build`
+React Router is going to allow us to swap out sets of components using familiar 
+"routing" patterns, rather than writing lots of complicated `if-statements` in our JavaScript.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To demonstrate the power of this tool, we're going to build a personal banking application, where we can
+independently display the Debits and Credits made to each account.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### LAB: Adding Debits and Credits
 
-### `npm run eject`
+Let's add some more features to our banking app, using the following `User Stories`!
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* The Debits index endpoint is located at `https://moj-api.herokuapp.com/debits`
+* The Credits index endpoint is located at `https://moj-api.herokuapp.com/credits`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Updating the Account Balance 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```text
+Making the Account Balance dynamic:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+GIVEN I am on any page displaying the Account Balance
+WHEN I view the Account Balance display area
+THEN I should see an Account Balance that accurately represents my Debits subtracted from my Credits
+AND I should be able to see a negative account balance if I have more Debits than Credits
+```
 
-## Learn More
+#### Adding Debits
+```text
+Viewing the Debits page:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+GIVEN I am on the Home Page
+WHEN I click on 'Debits'
+THEN I should be redirected to the Debits page
+AND I should see a title of 'Debits' on the page
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```text
+Displaying debits:
 
-### Code Splitting
+GIVEN I am on the Debits page
+WHEN I view the Debits display area
+THEN I should see all of my debits displayed
+AND each Debit should display a Debit description
+AND each Debit should display a Debit amount
+AND each Debit should display a Debit date
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```text
+Viewing the Account Balance on the Debits page:
 
-### Analyzing the Bundle Size
+GIVEN I am on the Debits page
+WHEN I view the Account Balance display area
+THEN I should see my Account Balance displayed
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```text
+Adding debits:
 
-### Making a Progressive Web App
+GIVEN I am on the Debits page
+WHEN I enter a new Debit description
+AND WHEN I enter a new Debit amount
+AND WHEN I click 'Add Debit'
+THEN I should see my new debit added to the Debits display area with the current date
+AND I should see my Account Balance updated to reflect the new Debit
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```text
+Viewing the Account Balance on the Debits page:
 
-### Advanced Configuration
+GIVEN I am on the Debits page
+WHEN I view the Account Balance display area
+THEN I should see my Account Balance displayed
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Adding Credits
 
-### Deployment
+```text
+Viewing the Credits page:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+GIVEN I am on the Home Page
+WHEN I click on 'Credits'
+THEN I should be redirected to the Credits page
+AND I should see a title of 'Credits' on the page
+```
 
-### `npm run build` fails to minify
+```text
+Displaying debits:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GIVEN I am on the Credits page
+WHEN I view the Credits display area
+THEN I should see all of my Credits displayed
+AND each Debit should display a Debit description
+AND each Debit should display a Debit amount
+AND each Debit should display a Debit date
+```
+
+```text
+Viewing the Account Balance on the Credits page:
+
+GIVEN I am on the Credits page
+WHEN I view the Account Balance display area
+THEN I should see my Account Balance displayed
+```
+
+```text
+Adding Credits:
+
+GIVEN I am on the Credits page
+WHEN I enter a new Debit description
+AND WHEN I enter a new Debit amount
+AND WHEN I click 'Add Debit'
+THEN I should see my new debit added to the Credits display area with the current date
+AND I should see my Account Balance updated to reflect the new Debit
+```
+
+```text
+Viewing the Account Balance on the Credits page:
+
+GIVEN I am on the Credits page
+WHEN I view the Account Balance display area
+THEN I should see my Account Balance displayed
+```
