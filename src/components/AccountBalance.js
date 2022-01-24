@@ -1,10 +1,10 @@
 import React from "react"
 
-export default function AccountBalance(props){
+export default function AccountBalance(props) {
 
-        return(
+    return (
         <div>
-           <h2> Account Balance: $ {props.accountBalance.toFixed(2)}</h2>
+            <h2> Account Balance: $ {props.accountBalance.toFixed(2)}</h2>
         </div>
     )
 }

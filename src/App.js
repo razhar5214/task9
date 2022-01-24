@@ -1,71 +1,58 @@
-import logo from './logo.svg';
-// import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Link, Routes, Route } from "react-router-dom"
+import React from 'react';
+import { HashRouter as HashRouter, Routes, Route } from 'react-router-dom';
 import Home from "./components/Home"
-import AccountBalance from './components/AccountBalance';
-import Login from "./components/Login"
-import { useState } from "react"
-import UserProfile from './components/UserProfile';
+import UserProfile from "./components/UserProfile"
+import LogIn from "./components/LogIn"
 import Debits from './components/Debits';
-import Credits from './components/Credits'
+import Credits from './components/Credits';
 
+function App() {
 
-export default function App() {
-
-  const [userInfo, setUserInfo] = useState({
+  const [state, setState] = React.useState({
     accountBalance: 14568.27,
     currentUser: {
-      userName: "bob_loblaw",
-      memberSince: "08/23/99",
+      userName: 'bob_loblaw',
+      memberSince: '08/23/99',
+      login: false
     }
   })
 
-  const mockLogIn = (logInInfo) => {
-    const newUser = { ...userInfo.currentUser }
+
+  function mockLogIn(logInInfo) {
+    const newUser = { ...state.currentUser }
     newUser.userName = logInInfo.userName
-    setUserInfo({ currentUser: newUser })
+    newUser.memberSince = new Date().toISOString().slice(0, 10)
+    newUser.login = true
+    setState({ ...state, currentUser: newUser })
   }
 
-  const LogInComponent = () => (
-    <Login
-      user={userInfo.currentUser}
-      mockLogIn={mockLogIn} {...userInfo}
-    />
-  )
 
-  const updateBalance = (num) => {
-    console.log("Update Balance with: $" + num)
-    setUserInfo(prevBalance => ({
-      ...prevBalance,
-      accountBalance: num
-    }))
+  function handleChange(amount) {
+    const balance = Number(state.accountBalance) + Number(amount)
+    setState({ ...state, accountBalance: balance })
   }
 
-  const DebitsComponent = () => (
-    <Debits
-      updateBalance={updateBalance}
-      {...userInfo}
-    />
-  )
-  const CreditsComponent = () => (
-    <Credits
-      updateBalance={updateBalance}
-      {...userInfo}
-    />
-  )
 
   return (
-    <div className="App">
+    <HashRouter>
+      <div class="box">
+        <div class="inner">
+          <span>Bank of React</span>
+        </div>
+        <div class="inner">
+          <span>Bank of React</span>
+        </div>
+      </div>
       <Routes>
-        <Route exact path="/" element={<Home {...userInfo} />} />
-        <Route exact path="/userProfile" element={<UserProfile {...userInfo} />} />
-        <Route exact path="/login" element={LogInComponent()} />
-        <Route exact path="/debits" element={DebitsComponent()} />
-        <Route exact path="/credits" element={CreditsComponent()} />
+        <Route exact path="/" element={<Home info={state} />} />
+        <Route exact path="/login" element={<LogIn user={state.currentUser} mockLogIn={mockLogIn} />} />
+        <Route exact path="/userProfile" element={<UserProfile info={state} />} />
+        <Route exact path="/Debits" element={<Debits accountBalance={state.accountBalance} login={state.currentUser.login} onChange={handleChange} />} />
+        <Route exact path="/Credits" element={<Credits accountBalance={state.accountBalance} login={state.currentUser.login} onChange={handleChange} />} />
       </Routes>
-    </div>
+    </HashRouter>
   );
+
 }
 
-
+export default App;
