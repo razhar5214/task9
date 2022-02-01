@@ -1,6 +1,7 @@
 import React from "react"
 import { useState } from "react"
-import { BrowserRouter as Router } from "react-router-dom"
+// import { BrowserRouter as Router } from "react-router-dom"
+import { HashRouter as Router } from "react-router-dom"
 import { Navigate } from 'react-router-dom'
 
 export default function Login(props) {
